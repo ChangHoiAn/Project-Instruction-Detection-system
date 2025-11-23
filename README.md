@@ -48,9 +48,14 @@
 ---
 
 ## 🎥 결과 및 시연
-- **I2C LCD**: 태양광 전압 및 방향 출력  
-- **UART 출력**: 위치별 조도량 및 전압 표시  
+- **I2C LCD**: 태양광 전압 및 방향 출력
+<img width="648" height="328" alt="광추적이미지1" src="https://github.com/user-attachments/assets/9f62e38d-071d-4b63-a9cc-cc52329e964e" />
+
+- **UART 출력**: 위치별 조도량 및 전압 표시
+<img width="984" height="312" alt="광추적이미지2" src="https://github.com/user-attachments/assets/5c3ec9a6-ebbe-452c-82a1-baad778a8cb2" />
+
 - **시연 영상**: 빛의 방향에 따라 태양광 전압 상승 확인  
+![빛에따른태양광전압상승 (1)](https://github.com/user-attachments/assets/5eaefeb8-6833-4d54-8c93-4625388a1285)
 
 ---
 
