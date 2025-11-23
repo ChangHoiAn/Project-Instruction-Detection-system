@@ -31,9 +31,14 @@
 ---
 
 ## 🔄 구현 과정
-- **STM32**: 인터럽트 신호 감지 후 Wi-Fi로 명령 전송  
-- **Raspberry Pi**: PHP + MariaDB 기반 DB 저장 (출입 로그 기록)  
+- **STM32**: 인터럽트 신호 감지 후 Wi-Fi로 명령 전송
+<img width="284" height="367" alt="image" src="https://github.com/user-attachments/assets/7ae11122-d2a8-4ff9-9b6e-e723290db37e" />
+
+- **Raspberry Pi**: PHP + MariaDB 기반 DB 저장 (출입 로그 기록)
+<img width="749" height="820" alt="image" src="https://github.com/user-attachments/assets/cf42f87b-0268-44e5-b710-fddb2c38fb30" />
+ 
 - **Arduino**: 3초마다 최신 DB 요청 → LCD, Buzzer, LED 상태 갱신  
+<img width="855" height="642" alt="image" src="https://github.com/user-attachments/assets/7f4cca30-cd16-484e-b1ec-bb622d96576b" />
 
 ---
 
