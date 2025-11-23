@@ -1,61 +1,53 @@
-# 태양광 추적 시스템
-<img width="1016" height="809" alt="image" src="https://github.com/user-attachments/assets/5367751a-382f-4e2c-af01-7835695cff0c" />
+# IOT 기반 실시간 침입 감지 시스템
+<img width="567" height="370" alt="image" src="https://github.com/user-attachments/assets/1e088cd3-ac00-442e-9318-a3c93850b580" />
 
 
 ## 📖 프로젝트 개요
-태양광 패널은 설치 위치와 지형, 반사광 등에 따라 최적의 조도 위치가 달라집니다.  
-이를 해결하기 위해 **조도 센서 기반 태양광 추적 시스템**을 구현했습니다.  
+무단 침입 및 원격 개방 등 출입 통제 실패로 인한 보안 위협을 방지하기 위해  
+**버튼 센서 + Wi-Fi + Bluetooth 기반의 실시간 출입 감지 시스템**을 구현했습니다.  
 
-- 360도 회전 가능  
-- 위도에 따른 사선 설치 고려  
-- 실시간으로 태양광의 최적 방향 추적  
-
----
-
-## 🎯 목표
-- 4개의 조도 센서를 90도 간격으로 설치  
-- 가장 밝은 방향을 탐지하여 모터를 해당 방향으로 회전  
-- 태양광 모듈의 출력 전압을 실시간 측정 및 표시  
+- 버튼 센서를 통한 출입 감지  
+- LCD, Buzzer, LED를 활용한 침입 알림  
+- 관리실에서 직관적으로 출입 상태 파악 및 즉각 대응 가능
 
 ---
 
-## ⚙️ 사용 부품
-- STM32F411RE x1  
-- 조도 센서 x4  
-- 태양광 모듈 x1  
-- 스텝 모터 x1  
-- I2C 디스플레이 x1  
-- 10k 저항 x6  
+## ⚙️ 개발 환경
+- **측정부**: Button Sensor, STM32, HC-06 (Bluetooth), ESP-01 (Wi-Fi)  
+- **메인 서버**: Raspberry Pi, MariaDB, PHP 기반 웹 서버  
+- **동작부**: Arduino, LCD, Buzzer, LED  
 
 ---
 
-## 🛠️ 시스템 구성
-- **조도 센서**: 빛의 세기를 아날로그 전압으로 변환  
-- **STM32**: ADC/DMA 기반 데이터 수집 및 모터 제어  
-- **스텝 모터**: 태양광 패널 방향 회전  
-- **I2C 디스플레이**: 출력 전압 및 방향 표시  
-- **UART 출력**: 위치별 조도량 및 전압 출력  
+## 🛠️ 시스템 구성도
+1. **Button Sensor 1**: DOOR OPEN 감지 (침입 발생)  
+2. **Button Sensor 2**: 관리자 CLOSE (경보 해제)  
+3. **STM32**: 센서 신호 감지 및 Wi-Fi 전송  
+4. **ESP-01**: Raspberry Pi로 데이터 전송  
+5. **Raspberry Pi**: DB 저장 및 웹 서버 운영  
+6. **HC-06**: Bluetooth → Arduino  
+7. **Arduino**: LCD, Buzzer, LED 알림 표시  
 
 ---
 
-## 🔄 알고리즘 흐름
-1. 0.2초마다 목표 index로 1씩 회전 (`ProcessStep 함수`)  
-2. ADC 값 기반 태양광 전압 계산  
-3. 밝기 차이가 300 이상일 경우 방향 갱신 및 이동  
-4. 이동 중 상태는 Queue에 저장하여 연속 처리  
-5. 0.5초마다 UART/I2C 출력 (비블로킹 방식)  
+## 🔄 구현 과정
+- **STM32**: 인터럽트 신호 감지 후 Wi-Fi로 명령 전송  
+- **Raspberry Pi**: PHP + MariaDB 기반 DB 저장 (출입 로그 기록)  
+- **Arduino**: 3초마다 최신 DB 요청 → LCD, Buzzer, LED 상태 갱신  
 
 ---
 
 ## 🎥 결과 및 시연
-- **I2C LCD**: 태양광 전압 및 방향 출력
-<img width="648" height="328" alt="광추적이미지1" src="https://github.com/user-attachments/assets/9f62e38d-071d-4b63-a9cc-cc52329e964e" />
+- 침입 발생 시 LCD, Buzzer, LED를 통한 경고 알림  
+- 관리실에서 실시간 출입 상태 확인 가능  
 
-- **UART 출력**: 위치별 조도량 및 전압 표시
-<img width="984" height="312" alt="광추적이미지2" src="https://github.com/user-attachments/assets/5c3ec9a6-ebbe-452c-82a1-baad778a8cb2" />
+---
 
-- **시연 영상**: 빛의 방향에 따라 태양광 전압 상승 확인  
-![빛에따른태양광전압상승 (1)](https://github.com/user-attachments/assets/5eaefeb8-6833-4d54-8c93-4625388a1285)
+## 🔍 고찰 및 개선 사항
+- 버튼 센서의 물리적 한계 → **초음파 센서 교체 필요**  
+- 단순한 데이터 기록 구조 → **세부 출입 주체 및 패턴 분석 필요**  
+- BLE 비콘 기반 RSSI 거리 판단 불안정 → **향후 구현 예정**  
+- 관리자 알림만 제공 → **스마트폰 연동 통한 실시간 알림 확장 필요**
 
 ---
 
